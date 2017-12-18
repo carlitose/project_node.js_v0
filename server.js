@@ -51,3 +51,5 @@ process.on('uncaughtException', (error) => {
 process.on('unhandledRejection', (reason, p) => {
   console.error('Unhandled Rejection in proccess', 'at: Promise', p, 'reason:', reason);
 })
+
+module.exports = app;

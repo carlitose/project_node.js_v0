@@ -27,7 +27,7 @@ function _createQuery(options) {
     return query;
 }
 
-User.statics.add = function(element) {
+User.statics.add = function (element) {
     return new Promise((resolve, reject) => {
         this.create(element, (err, data) => {
             if (err) {
@@ -38,7 +38,7 @@ User.statics.add = function(element) {
     });
 };
 
-User.statics.getAll = function(options) {
+User.statics.getAll = function (options) {
     return new Promise((resolve, reject) => {
         const query = _createQuery.call(this, options);
         query.exec((err, data) => {
@@ -49,9 +49,11 @@ User.statics.getAll = function(options) {
         })
     });
 };
-User.statics.get = function(_id) {
+User.statics.get = function (_id) {
     return new Promise((resolve, reject) => {
-        this.find({ _id }, (err, data) => {
+        this.find({
+            _id
+        }, (err, data) => {
             if (err) {
                 return reject(err);
             }
@@ -60,14 +62,31 @@ User.statics.get = function(_id) {
     });
 };
 
-User.statics.edit = function(_id, element) {
+User.statics.edit = function (_id, element) {
     return new Promise((resolve, reject) => {
-        this.update({ _id }, element, { upsert: true }, (err, data) => {
+        this.update({
+            _id
+        }, element, {
+            upsert: true
+        }, (err, data) => {
             if (err) {
                 return reject(err);
             }
             console.log(data);
             resolve(data._id);
+        })
+    });
+}
+
+User.statics.delete = function (_id) {
+    return new Promise((resolve, reject) => {
+        this.remove({
+            _id
+        }, (err) => {
+            if (err) {
+                return reject(err);
+            }
+            resolve();
         })
     });
 }

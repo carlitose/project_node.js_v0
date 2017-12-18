@@ -4,7 +4,8 @@
   "description": "starter node.js project",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "npm run test-unit",
+    "test-unit": "NODE_ENV=test mocha --require co-mocha './*.spec.js' 'routes/*.spec.js'",
     "start": "node server.js"
   },
   "keywords": [
@@ -25,8 +26,11 @@
     "winston": "^2.4.0"
   },
   "devDependencies": {
-    "eslint": "^4.13.1",
-    "mocha": "^4.0.1",
-    "supervisor": "^0.12.0"
+    "chai": "^3.5.0",
+    "chai-http": "^3.0.0",
+    "co-mocha": "^1.1.2",
+    "mocha": "^2.5.3",
+    "sinon": "^1.17.4",
+    "sinon-chai": "^2.8.0"
   }
 }

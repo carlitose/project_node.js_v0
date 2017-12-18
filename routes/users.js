@@ -23,11 +23,11 @@ route.get('/user', (req, res) => {
     }
     console.log(req.query._id);
     User.get(req.query._id).then((data) => {
-        res.status(202).json(data);
+        res.status(200).json(data);
 
     }).catch(err => {
         if (err) {
-            logger.error(err, '~routes~users~getAll');
+            logger.error(err, '~routes~user~get');
             res.status(505).end('Internal Server Error');
         }
     });
@@ -36,10 +36,25 @@ route.get('/user', (req, res) => {
 route.get('/users', (req, res) => {
     const query = req.query || null;
     User.getAll(query).then((data) => {
-        res.status(202).send(data);
+        res.status(200).send(data);
     }).catch(err => {
         if (err) {
             logger.error(err, '~routes~users~getAll');
+            res.status(505).end('Internal Server Error');
+        }
+    });
+});
+
+route.delete('/user', (req, res) => {
+   if (!req.query || !req.query._id) {
+        return res.status(404).end('No id users found');
+    }
+    User.get(req.query._id).then(() => {
+        res.status(200).json();
+
+    }).catch(err => {
+        if (err) {
+            logger.error(err, '~routes~user~delete');
             res.status(505).end('Internal Server Error');
         }
     });
